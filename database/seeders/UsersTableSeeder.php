@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 Use DB;
 use Hash;
 
@@ -15,7 +16,7 @@ class UsersTableSeeder extends Seeder
     public function run(): void
     {
         // Admin user
-        DB::table('users')->insert([
+          DB::table('users')->insert([
             'name' => 'Admin User',
             'image' =>'user-5.jpg',
             'email' => 'admin@gmail.com',
@@ -24,7 +25,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         // Vendor user
-        DB::table('users')->insert([
+        $vendor = user::create([
             'name' => 'Vendor User',
             'image' =>'user-4.jpg',
             'email' => 'vendor@gmail.com',
@@ -39,6 +40,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'user@gmail.com',
             'password' => Hash::make('ahmed3311'),
             'role' => 'User',
+            'uer_id' => $vendor->id,
         ]);
     }
 }

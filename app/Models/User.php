@@ -19,7 +19,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'image',
+        'email_verified_at',
+        'role',
         'password',
+        'user_id',        
     ];
 
     /**
@@ -59,6 +63,12 @@ class User extends Authenticatable
         }
 
         return null;
+    }
+
+
+    public function subUsers()
+    {
+        return $this->hasMany(User::class, 'user_id', 'id');
     }
 
 

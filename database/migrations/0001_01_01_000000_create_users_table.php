@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('role');
             $table->string('password');
             $table->rememberToken();
+            $table->unsignedBigInteger('user_id')->nullable()->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->onDelete('cascade')->on('users');
             $table->timestamps();
         });
 
