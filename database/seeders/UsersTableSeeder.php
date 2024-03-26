@@ -40,7 +40,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'user@gmail.com',
             'password' => Hash::make('ahmed3311'),
             'role' => 'User',
-            'user_id' => $vendor->id,
+            'vendor_id' => $vendor->id,
         ]);
     }
 }

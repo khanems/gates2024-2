@@ -66,7 +66,7 @@ class User extends Authenticatable
     }
 
 
-    public function subUsers()
+    public function vendor_id()
     {
         return $this->hasMany(User::class, 'vendor_id', 'id');
     }
