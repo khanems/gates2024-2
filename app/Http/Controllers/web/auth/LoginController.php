@@ -16,7 +16,8 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            $user = Auth::user(); // Retrieve the authenticated user
+           $user = Auth::user(); // Retrieve the authenticated user
+        //   return $user->load('vendorId');
 
             // Authentication passed...
             if (Gate::allows('admin', $user)) {
