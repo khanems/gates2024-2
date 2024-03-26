@@ -23,7 +23,7 @@ class User extends Authenticatable
         'email_verified_at',
         'role',
         'password',
-        'user_id',        
+        'vendor_id',        
     ];
 
     /**
@@ -68,7 +68,7 @@ class User extends Authenticatable
 
     public function subUsers()
     {
-        return $this->hasMany(User::class, 'user_id', 'id');
+        return $this->hasMany(User::class, 'vendor_id', 'id');
     }
 
 
