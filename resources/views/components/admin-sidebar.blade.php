@@ -20,7 +20,7 @@
 
 
 <body>
-    <!-- Preloader -->
+   
     <div class="preloader" style="background-color: #2A3447;">
         <img src="../assets/images/logos/favicon.png" alt="loader" class="lds-ripple img-fluid" />
     </div>

@@ -368,7 +368,8 @@
 
 <script src="../assets/js/sidebarmenu.js"></script>
 <script src="../assets/js/theme.js"></script>
-
+@if(request()->is('admin', 'vendor', 'user'))
 <script src="../assets/libs/owl.carousel/dist/owl.carousel.min.js"></script>
 <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
 <script src="../assets/js/dashboards/dashboard.js"></script>
+@endif

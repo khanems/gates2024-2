@@ -25,7 +25,7 @@
   </head>
 
   <body>
-    <!-- Preloader -->
+   
     <div class="preloader">
       <img
         src="../assets/images/logos/favicon.png"
