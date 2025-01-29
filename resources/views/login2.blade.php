@@ -1,115 +1,102 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" data-bs-theme="dark" data-color-theme="Blue_Theme">
+@extends('layouts.admin')
 
-<head>
-  <!-- Required meta tags -->
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+@section('page-title')
+    {{ __('Manage Resignation') }}
+@endsection
 
-<!-- Favicon icon-->
-<link
-  rel="shortcut icon"
-  type="image/png"
-  href="../assets/images/logos/favicon.png"
-/>
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Home') }}</a></li>
+    <li class="breadcrumb-item">{{ __('Resignation') }}</li>
+@endsection
 
-<!-- Core Css -->
-<link rel="stylesheet" href="../assets/css/styles.css" />
+@section('action-button')
+    @can('Create Resignation')
+        <a href="#" data-url="{{ route('resignation.create') }}" data-ajax-popup="true" data-size="lg"
+            data-title="{{ __('Create New Resignation') }}" data-size="lg" data-bs-toggle="tooltip" title=""
+            class="btn btn-sm btn-primary" data-bs-original-title="{{ __('Create') }}">
+            <i class="ti ti-plus"></i>
+        </a>
+    @endcan
+@endsection
 
-  <title>Modernize Bootstrap Admin</title>
-</head>
+@section('content')
+    <div class="row">
 
-<body>
-  <!-- Preloader -->
-  <div class="preloader
-    <img src="../assets/images/logos/favicon.png" alt="loader" class="lds-ripple img-fluid" />
-  </div>
-  <div id="main-wrapper">
-    <div class="position-relative overflow-hidden radial-gradient min-vh-100 w-100">
-      <div class="position-relative z-index-5">
-        <div class="row">
-          <div class="col-xl-7 col-xxl-8">
-            <a href="../dark/index.html" class="text-nowrap logo-img d-block px-4 py-9 w-100">
-              <img src="../assets/images/logos/dark-logo.svg" class="dark-logo" alt="Logo-Dark" />
-              <img src="../assets/images/logos/light-logo.svg" class="light-logo" alt="Logo-light" />
-            </a>
-            <div class="d-none d-xl-flex align-items-center justify-content-center" style="height: calc(100vh - 80px);">
-              <img src="../assets/images/backgrounds/login-security.svg" alt="" class="img-fluid" width="500">
-            </div>
-          </div>
-          <div class="col-xl-5 col-xxl-4">
-            <div class="authentication-login min-vh-100 bg-body row justify-content-center align-items-center p-4">
-              <div class="col-sm-8 col-md-6 col-xl-9">
-                <h2 class="mb-3 fs-7 fw-bolder">Welcome to Modernize</h2>
-                <p class=" mb-9">Your Admin Dashboard</p>
-                <div class="row">
-                  <div class="col-6 mb-2 mb-sm-0">
-                    <a class="btn btn-white text-dark border fw-normal d-flex align-items-center justify-content-center rounded-2 py-8"
-                      href="javascript:void(0)" role="button">
-                      <img src="../assets/images/svgs/google-icon.svg" alt="" class="img-fluid me-2" width="18"
-                        height="18">
-                      <span class="d-none d-sm-block me-1 flex-shrink-0">Sign in with</span>Google
-                    </a>
-                  </div>
-                  <div class="col-6">
-                    <a class="btn btn-white text-dark border fw-normal d-flex align-items-center justify-content-center rounded-2 py-8"
-                      href="javascript:void(0)" role="button">
-                      <img src="../assets/images/svgs/facebook-icon.svg" alt="" class="img-fluid me-2" width="18"
-                        height="18">
-                      <span class="d-none d-sm-block me-1 flex-shrink-0">Sign in with</span>FB
-                    </a>
-                  </div>
-                </div>
-                <div class="position-relative text-center my-4">
-                  <p class="mb-0 fs-4 px-3 d-inline-block text-bg-white text-dark z-index-5 position-relative">or sign
-                    in
-                    with</p>
-                  <span class="border-top w-100 position-absolute top-50 start-50 translate-middle"></span>
-                </div>
-                <form>
-                  <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Username</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                  </div>
-                  <div class="mb-4">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between mb-4">
-                    <div class="form-check">
-                      <input class="form-check-input primary" type="checkbox" value="" id="flexCheckChecked" checked>
-                      <label class="form-check-label text-dark" for="flexCheckChecked">
-                        Remeber this Device
-                      </label>
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header card-body table-border-style">
+                    {{-- <h5> </h5> --}}
+                    <div class="table-responsive">
+                        <table class="table" id="pc-dt-simple">
+                            <thead>
+                                <tr>
+                                    @role('company')
+                                        <th>{{ __('Employee Name') }}</th>
+                                    @endrole
+                                    <th>{{ __('Resignation Date') }}</th>
+                                    <th>{{ __('Last Working Day') }}</th>
+                                    <th>{{ __('Reason') }}</th>
+                                    @if (Gate::check('Edit Resignation') || Gate::check('Delete Resignation'))
+                                        <th width="200px">{{ __('Action') }}</th>
+                                    @endif
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                                @foreach ($resignations as $resignation)
+                                    <tr>
+                                        @role('company')
+                                            @php
+                                                $employee = \App\Models\Employees::find($resignation->employee_id);
+                                            @endphp
+                                            <td>{{ $employee ? $employee->name : '' }}</td>
+                                        @endrole
+                                        <td>{{ \Auth::user()->dateFormat($resignation->notice_date) }}</td>
+                                        <td>{{ \Auth::user()->dateFormat($resignation->resignation_date) }}</td>
+                                        <td>{{ $resignation->description }}</td>
+                                        <td class="Action">
+                                            @if (Gate::check('Edit Resignation') || Gate::check('Delete Resignation'))
+                                                <span>
+                                                    @can('Edit Resignation')
+                                                        <div class="action-btn bg-info ms-2">
+                                                            <a href="#" class="mx-3 btn btn-sm  align-items-center"
+                                                                data-size="lg"
+                                                                data-url="{{ URL::to('resignation/' . $resignation->id . '/edit') }}"
+                                                                data-ajax-popup="true" data-size="md" data-bs-toggle="tooltip"
+                                                                title="" data-title="{{ __('Edit Resignation') }}"
+                                                                data-bs-original-title="{{ __('Edit') }}">
+                                                                <i class="ti ti-pencil text-white"></i>
+                                                            </a>
+                                                        </div>
+                                                    @endcan
+
+                                                    @can('Delete Resignation')
+                                                        <div class="action-btn bg-danger ms-2">
+                                                            {!! Form::open([
+                                                                'method' => 'DELETE',
+                                                                'route' => ['resignation.destroy', $resignation->id],
+                                                                'id' => 'delete-form-' . $resignation->id,
+                                                            ]) !!}
+                                                            <a href="#"
+                                                                class="mx-3 btn btn-sm  align-items-center bs-pass-para"
+                                                                data-bs-toggle="tooltip" title=""
+                                                                data-bs-original-title="Delete" aria-label="Delete"><i
+                                                                    class="ti ti-trash text-white text-white"></i></a>
+                                                            </form>
+                                                        </div>
+                                                    @endcan
+                                                </span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
                     </div>
-                    <a class="text-primary fw-medium" href="../dark/authentication-forgot-password.html">Forgot Password ?</a>
-                  </div>
-                  <a href="../dark/index.html" class="btn btn-primary w-100 py-8 mb-4 rounded-2">Sign In</a>
-                  <div class="d-flex align-items-center justify-content-center">
-                    <p class="fs-4 mb-0 fw-medium">New to Modernize?</p>
-                    <a class="text-primary fw-medium ms-2" href="../dark/authentication-register.html">Create an account</a>
-                  </div>
-                </form>
-              </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-  <div class="dark-transparent sidebartoggler"></div>
-  <!-- Import Js Files -->
-
-<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-<script src="../assets/js/app.min.js"></script>
-<script src="../assets/js/app.dark.init.js"></script>
-<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/libs/simplebar/dist/simplebar.min.js"></script>
-
-<script src="../assets/js/sidebarmenu.js"></script>
-<script src="../assets/js/theme.js"></script>
-
-</body>
-
-</html>
+@endsection
