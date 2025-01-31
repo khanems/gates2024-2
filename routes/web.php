@@ -69,6 +69,7 @@ Route::middleware(['auth', 'can:admin'])->group(function () {
         return view('admin.index');
     })->name('admin');
 
+    // profile routes
     Route::get('/admin-profile', function () {
         return view('admin.profile.admin-profile');
     })->name('admin-profile');
@@ -76,6 +77,12 @@ Route::middleware(['auth', 'can:admin'])->group(function () {
     Route::get('/admin-edit-profile', function () {
         return view('admin.profile.edit-profile');
     })->name('admin-edit-profile');
+    // profile routes ends
+
+    // admin settings routes
+    Route::get('/admin-settings', function () {
+        return view('admin.settings.settings');
+    })->name('admin-settings');
 });
 // Admin Routes Ends from here 
 
