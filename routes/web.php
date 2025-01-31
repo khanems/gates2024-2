@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Web\Auth\LoginController;
+use App\Http\Controllers\Web\Admin\SettingController;
 
 
 
@@ -79,10 +80,9 @@ Route::middleware(['auth', 'can:admin'])->group(function () {
     })->name('admin-edit-profile');
     // profile routes ends
 
-    // admin settings routes
-    Route::get('/admin-settings', function () {
-        return view('admin.settings.settings');
-    })->name('admin-settings');
+
+Route::get('/admin-settings', [SettingController::class,'index'])->name('admin-settings');
+
 });
 // Admin Routes Ends from here 
 

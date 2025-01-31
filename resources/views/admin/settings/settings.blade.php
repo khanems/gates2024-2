@@ -74,7 +74,8 @@
                     <div class="tab-pane fade show active" id="pills-account" role="tabpanel"
                         aria-labelledby="pills-account-tab" tabindex="0">
                         <div class="row">
-                            <div class="col-lg-6 d-flex align-items-stretch">
+
+                            {{-- <div class="col-lg-6 d-flex align-items-stretch">
                                 <div class="card w-100 position-relative overflow-hidden">
                                     <div class="card-body p-4">
                                         <h5 class="card-title fw-semibold">Change Profile</h5>
@@ -121,35 +122,129 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 d-flex align-items-stretch">
+                            </div> --}}
+
+                            <div class="col-lg-5 d-flex align-items-stretch">
                                 <div class="card w-100 position-relative overflow-hidden">
                                     <div class="card-body p-4">
-                                        <h5 class="card-title fw-semibold">Change Password</h5>
-                                        <p class="card-subtitle mb-4">To change your password please confirm here</p>
+                                        <h5 class="card-title fw-semibold">Website Details</h5>
+                                        <p class="card-subtitle mb-4">To change your website details please add here</p>
                                         <form>
                                             <div class="mb-4">
-                                                <label for="exampleInputPassword1"
-                                                    class="form-label fw-semibold">Current Password</label>
-                                                <input type="password" class="form-control"
-                                                    id="exampleInputPassword1" value="">
+                                                <label for="website_name" class="form-label fw-semibold">Website
+                                                    Name</label>
+                                                <input type="text" class="form-control" id="website_name"
+                                                    value="{{ $settings->website_name ?? 'no data' }}">
                                             </div>
+
                                             <div class="mb-4">
-                                                <label for="exampleInputPassword2" class="form-label fw-semibold">New
-                                                    Password</label>
-                                                <input type="password" class="form-control"
-                                                    id="exampleInputPassword2" value="">
+                                                <label for="tagline"
+                                                    class="form-label fw-semibold">Tagline</label>
+                                                <input type="text" class="form-control" id="tagline"
+                                                    value="{{ $settings->tagline ?? 'no data' }}">
                                             </div>
-                                            <div class="">
-                                                <label for="exampleInputPassword3"
-                                                    class="form-label fw-semibold">Confirm Password</label>
-                                                <input type="password" class="form-control"
-                                                    id="exampleInputPassword3" value="">
-                                            </div>
+                                            
+                                            <select class="form-select" aria-label="Default select example">
+    <option value="PK" {{ $settings->country == 'PK' ? 'selected' : '' }}>Pakistan</option>
+    <option value="AU" {{ $settings->country == 'AU' ? 'selected' : '' }}>Australia</option>
+    <option value="GB" {{ $settings->country == 'GB' ? 'selected' : '' }}>United Kingdom</option>
+    <option value="US" {{ $settings->country == 'US' ? 'selected' : '' }}>United States</option>
+    <option value="IN" {{ $settings->country == 'IN' ? 'selected' : '' }}>India</option>
+    <option value="RU" {{ $settings->country == 'RU' ? 'selected' : '' }}>Russia</option>
+</select>
                                         </form>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-lg-7 d-flex align-items-stretch">
+                                <div class="card w-100 position-relative overflow-hidden">
+                                    <div class="card-body p-4">
+                                        <h5 class="card-title fw-semibold">Change Settings</h5>
+                                        <p class="card-subtitle mb-4">Change your website logos and favicon from here
+                                        </p>
+                                        <div class="d-flex justify-content-between text-center">
+
+                                            <!-- Dark Logo -->
+                                            <div class="mb-4">
+                                                <h6>Dark Logo</h6>
+                                                <img id="darkLogo"
+                                                    src="{{ old('dark_logo', auth()->user()->dark_logo) }}"
+                                                    alt="Dark Logo" class="img-fluid rounded-circle" width="80"
+                                                    height="80">
+                                                <input type="file" id="darkLogoUpload" hidden accept="image/*"
+                                                    onchange="previewLogo('darkLogo', this)">
+                                                <div
+                                                    class="d-flex align-items-center justify-content-center my-3 gap-2">
+                                                    <button class="btn btn-primary"
+                                                        onclick="document.getElementById('darkLogoUpload').click()">Upload</button>
+                                                    <button class="btn btn-outline-danger"
+                                                        onclick="resetLogo('darkLogo')">Reset</button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Light Logo -->
+                                            <div class="mb-4">
+                                                <h6>Light Logo</h6>
+                                                <img id="lightLogo"
+                                                    src="{{ old('light_logo', auth()->user()->light_logo) }}"
+                                                    alt="Light Logo" class="img-fluid rounded-circle" width="80"
+                                                    height="80">
+                                                <input type="file" id="lightLogoUpload" hidden accept="image/*"
+                                                    onchange="previewLogo('lightLogo', this)">
+                                                <div
+                                                    class="d-flex align-items-center justify-content-center my-3 gap-2">
+                                                    <button class="btn btn-primary"
+                                                        onclick="document.getElementById('lightLogoUpload').click()">Upload</button>
+                                                    <button class="btn btn-outline-danger"
+                                                        onclick="resetLogo('lightLogo')">Reset</button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Favicon -->
+                                            <div class="mb-4">
+                                                <h6>Favicon</h6>
+                                                <img id="faviconImage"
+                                                    src="{{ old('favicon', auth()->user()->favicon) }}" alt="Favicon"
+                                                    class="img-fluid rounded-circle" width="80" height="80">
+                                                <input type="file" id="faviconUpload" hidden accept="image/*"
+                                                    onchange="previewLogo('faviconImage', this)">
+                                                <div
+                                                    class="d-flex align-items-center justify-content-center my-3 gap-2">
+                                                    <button class="btn btn-primary"
+                                                        onclick="document.getElementById('faviconUpload').click()">Upload</button>
+                                                    <button class="btn btn-outline-danger"
+                                                        onclick="resetLogo('faviconImage')">Reset</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <!-- JavaScript for Image Preview -->
+                                        <script>
+                                            function previewLogo(imageId, input) {
+                                                if (input.files && input.files[0]) {
+                                                    let reader = new FileReader();
+                                                    reader.onload = function(e) {
+                                                        document.getElementById(imageId).src = e.target.result;
+                                                    };
+                                                    reader.readAsDataURL(input.files[0]);
+                                                }
+                                            }
+
+                                            function resetLogo(imageId) {
+                                                document.getElementById(imageId).src = "{{ auth()->user()->image }}";
+                                                document.getElementById(imageId.replace('Image', 'Upload')).value = ""; // Clear input
+                                            }
+                                        </script>
+
+                                        <p class="mb-0">Allowed JPG, GIF, or PNG. Max size of 800K</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
                             <div class="col-12">
                                 <div class="card w-100 position-relative overflow-hidden mb-0">
                                     <div class="card-body p-4">
