@@ -334,12 +334,16 @@
                                         document.getElementById('dark-layout').style.display = 'none'; // Hide dark icon
                                         document.getElementById('light-layout').style.display = 'inline-block'; // Show light icon
                                         localStorage.setItem('theme', 'dark'); // Save preference
+                                        localStorage.setItem('preloaderColor', '#2A3447'); // Save preference
+
                                     } else {
                                         document.body.classList.add('light-mode');
                                         document.body.classList.remove('dark-mode');
                                         document.getElementById('dark-layout').style.display = 'inline-block'; // Show dark icon
                                         document.getElementById('light-layout').style.display = 'none'; // Hide light icon
                                         localStorage.setItem('theme', 'light'); // Save preference
+                                        
+                                        localStorage.setItem('preloaderColor', '#FFFFFF'); // Save preference
                                     }
                                 }
 

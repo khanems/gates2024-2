@@ -8,7 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
+    @php
+        Cache::forget('admin_settings');
+        $adminSettings = Cache::remember('admin_settings', now()->addMinutes(60), function () {
+            return DB::table('admin_settings')->first();
+        });
+        $favicon = $adminSettings?->favicon;
+        $dark_logo = $adminSettings?->dark_logo;
+        $light_logo = $adminSettings?->light_logo;
+    @endphp
+
+
+    <link rel="shortcut icon" type="image/png" href="{{ asset('storage/' . $favicon) }}" />
 
     <!-- Core Css -->
     <link rel="stylesheet" href="../assets/css/styles.css" />
@@ -20,10 +31,37 @@
 
 
 <body>
-   
-    <div class="preloader" style="background-color: #2A3447;">
-        <img src="../assets/images/logos/favicon.png" alt="loader" class="lds-ripple img-fluid" />
-    </div>
+    
+
+<div class="preloader" id="preloader">
+    <img src="{{ asset('storage/' . $favicon) }}" alt="loader" class="lds-ripple img-fluid"  />
+</div>
+
+<script>
+    // Check the theme value from localStorage
+    let theme = localStorage.getItem('theme') || 'light'; // Default to light if no theme is set
+
+    // Get the preloader element
+    let preloader = document.getElementById('preloader');
+
+    // Set the preloader background color based on the saved theme
+    if (theme === 'dark') {
+        preloader.style.backgroundColor = '#2A3447';  // Dark theme color
+    } else if (theme === 'light') {
+        preloader.style.backgroundColor = '#FFFFFF';  // Light theme color
+    }
+
+    // Ensure the color is applied immediately when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        if (theme === 'dark') {
+            preloader.style.backgroundColor = '#2A3447';
+        } else {
+            preloader.style.backgroundColor = '#FFFFFF';
+        }
+    });
+</script>
+
+
 
 
     <div id="main-wrapper">
@@ -38,8 +76,9 @@
                 <div class="brand-logo d-flex align-items-center justify-content-between">
                     <a href="../admin" class="text-nowrap logo-img">
                         <!-- dark logo needed here -->
-                        <img src="../assets/images/logos/logo.png" width="180" class="dark-logo" alt="Logo-Dark" />
-                        <img src="../assets/images/logos/logo.png" class="light-logo" alt="Logo-light"
+                        <img src="{{ asset('storage/' . $dark_logo) }}" width="180" class="dark-logo"
+                            alt="Logo-Dark" />
+                        <img src="{{ asset('storage/' . $light_logo) }}" class="light-logo" alt="Logo-light"
                             height = "45px" />
                     </a>
                     <a href="javascript:void(0)"

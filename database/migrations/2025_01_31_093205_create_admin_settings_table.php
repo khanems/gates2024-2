@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('dark_logo')->nullable();  // Dark logo
             $table->string('light_logo')->nullable(); // Light logo
             $table->string('favicon')->nullable();
+            $table->string('address')->nullable();
+            $table->string('email')->nullable();
             $table->text('meta_description')->nullable();
             $table->text('meta_keywords')->nullable();
             $table->string('country')->nullable(); // Country
@@ -25,9 +27,9 @@ return new class extends Migration
             $table->string('timezone')->nullable(); // Timezone
             $table->string('currency')->nullable(); // Currency code (e.g., USD, EUR)
             $table->string('currency_symbol')->nullable(); // Currency symbol (e.g., $, €, £)
-            $table->string('currency_pre_symbol')->nullable(); // Whether to place the symbol before the amount (e.g., "$100")
-            $table->string('currency_post_symbol')->nullable(); // Whether to place the symbol after the amount (e.g., "100$")
-            $table->string('date_time_style')->nullable(); // Date and time style (e.g., 'Y-m-d H:i:s')
+            $table->string('currency_symbol_location')->nullable(); // Whether to place the symbol before the amount (e.g., "$100")
+            $table->string('time_format')->nullable(); // Date and time style (e.g., 'Y-m-d H:i:s')
+            $table->string('date_format')->nullable(); // Date and time style (e.g., 'Y-m-d H:i:s')
             $table->timestamps();
         });
     }

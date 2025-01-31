@@ -82,6 +82,7 @@ Route::middleware(['auth', 'can:admin'])->group(function () {
 
 
 Route::get('/admin-settings', [SettingController::class,'index'])->name('admin-settings');
+    Route::put('/admin/settings/{settings}', [SettingController::class, 'update'])->name('admin.settings.update');
 
 });
 // Admin Routes Ends from here 
