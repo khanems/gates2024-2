@@ -1,15 +1,32 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Web\Auth\LoginController;
 
 
 
 
-// public urls starts
 Route::get('/', function () {
+    if (Auth::check()) {
+        // Redirect based on user role
+        $user = Auth::user();
+
+        if ($user->can('admin')) {
+            return redirect()->route('admin');
+        } elseif ($user->can('vendor')) {
+            return redirect('/vendor');
+        } elseif ($user->can('user')) {
+            return redirect('/user');
+        }
+
+        // Default fallback if no role is matched
+        return redirect('/dashboard');
+    }
+
     return view('login');
 })->name('login-html');
+
 
 Route::get('/login2', function () {
     return view('login2');
@@ -74,6 +91,10 @@ Route::middleware(['auth', 'can:vendor'])->group(function () {
     Route::get('/vendor-profile', function () {
         return view('vendor.profile.vendor-profile');
     })->name('vendor-profile');
+
+    Route::get('/vendor-edit-profile', function () {
+        return view('vendor.profile.edit-profile');
+    })->name('vendor-edit-profile');
 });
 // Vendor Routes Ends from here 
 

@@ -565,11 +565,10 @@
                                                 </span>
                                                 <div class="w-75 d-inline-block v-middle ps-3">
                                                     <h6 class="mb-1 fs-3 fw-semibold lh-base">My Profile</h6>
-                                                    <span class="fs-2 d-block text-body-secondary">Account
-                                                        Settings</span>
+                                                    <span class="fs-2 d-block text-body-secondary">Vendor Account</span>
                                                 </div>
                                             </a>
-                                            <a href="../dark/app-email.html"
+                                            <a href="{{ route('vendor-edit-profile') }}"
                                                 class="py-8 px-7 d-flex align-items-center">
                                                 <span
                                                     class="d-flex align-items-center justify-content-center text-bg-light rounded-1 p-6">
@@ -577,9 +576,9 @@
                                                         width="24" height="24" />
                                                 </span>
                                                 <div class="w-75 d-inline-block v-middle ps-3">
-                                                    <h6 class="mb-1 fs-3 fw-semibold lh-base">My Inbox</h6>
-                                                    <span class="fs-2 d-block text-body-secondary">Messages &
-                                                        Emails</span>
+                                                    <h6 class="mb-1 fs-3 fw-semibold lh-base">Edit profile</h6>
+                                                    <span class="fs-2 d-block text-body-secondary">Vendor
+                                                        settings</span>
                                                 </div>
                                             </a>
                                             <a href="../dark/app-notes.html"

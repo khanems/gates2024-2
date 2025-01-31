@@ -1,6 +1,6 @@
 <!-- componet here starts slid bar -->
-<x-admin-sidebar/>
-<x-admin-header/>
+<x-vendor-sidebar/>
+<x-vendor-header/>
 <!-- componet ends starts slid bar -->
 
     <!-- page started here -->
