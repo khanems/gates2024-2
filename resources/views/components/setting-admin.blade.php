@@ -12,7 +12,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body" data-simplebar style="height: calc(100vh - 80px)">
-        <h6 class="fw-semibold fs-4 mb-2">Theme</h6>
+        {{-- <h6 class="fw-semibold fs-4 mb-2">Theme</h6>
 
         <div class="d-flex flex-row gap-3 customizer-box" role="group">
             <input type="radio" class="btn-check" name="theme-layout" id="light-layout" autocomplete="off" />
@@ -22,7 +22,7 @@
             <input type="radio" class="btn-check" name="theme-layout" id="dark-layout" autocomplete="off" />
             <label class="btn p-9 btn-outline-primary" for="dark-layout"><i
                     class="icon ti ti-moon fs-7 me-2"></i>Dark</label>
-        </div>
+        </div> --}}
 
         <!-- <h6 class="mt-5 fw-semibold fs-4 mb-2">Theme Direction</h6>
     <div class="d-flex flex-row gap-3 customizer-box" role="group">
@@ -122,7 +122,7 @@
           class="icon ti ti-layout-distribute-horizontal fs-7 me-2"></i>Full</label>
     </div> -->
 
-        <h6 class="fw-semibold fs-4 mb-2 mt-5">Sidebar Type</h6>
+        {{-- <h6 class="fw-semibold fs-4 mb-2 mt-5">Sidebar Type</h6>
         <div class="d-flex flex-row gap-3 customizer-box" role="group">
             <a href="javascript:void(0)" class="fullsidebar">
                 <input type="radio" class="btn-check" name="sidebar-type" id="full-sidebar" autocomplete="off" />
@@ -135,7 +135,7 @@
                 <label class="btn p-9 btn-outline-primary" for="mini-sidebar"><i
                         class="icon ti ti-layout-sidebar fs-7 me-2"></i>Collapse</label>
             </div>
-        </div>
+        </div> --}}
 
         <!-- <h6 class="mt-5 fw-semibold fs-4 mb-2">Card With</h6>
 

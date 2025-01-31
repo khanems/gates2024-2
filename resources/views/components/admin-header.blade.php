@@ -6,12 +6,59 @@
             <!-- ---------------------------------- -->
             <nav class="navbar navbar-expand-lg p-0">
                 <ul class="navbar-nav">
+
+
+                    {{-- show or hide one start  --}}
                     <li class="nav-item">
-                        <a class="nav-link sidebartoggler nav-icon-hover ms-n3" id="headerCollapse"
+                        <a class="nav-link sidebartoggler nav-icon-hover ms-n3" id="mini-sidebar"
                             href="javascript:void(0)">
                             <i class="ti ti-menu-2"></i>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link sidebartoggler nav-icon-hover ms-n3" id="full-sidebar"
+                            href="javascript:void(0)">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+
+                    <script>
+                        // Function to toggle between mini and full sidebar
+                        function toggleSidebar(state) {
+                            if (state === 'full-sidebar') {
+                                // Hide mini sidebar icon and show full sidebar icon
+                                document.getElementById('mini-sidebar').style.display = 'none';
+                                document.getElementById('full-sidebar').style.display = 'inline-block';
+                            } else {
+                                // Hide full sidebar icon and show mini sidebar icon
+                                document.getElementById('full-sidebar').style.display = 'none';
+                                document.getElementById('mini-sidebar').style.display = 'inline-block';
+                            }
+
+                            // Save sidebar state in localStorage
+                            localStorage.setItem('sidebar', state);
+                        }
+
+                        // Initial state based on localStorage
+                        document.addEventListener("DOMContentLoaded", function() {
+                            const savedState = localStorage.getItem('sidebar') ||
+                            'mini-sidebar'; // Default to 'mini-sidebar' if not set
+                            toggleSidebar(savedState);
+                        });
+
+                        // Event listeners for toggling sidebar
+                        document.getElementById('mini-sidebar').addEventListener('click', function() {
+                            toggleSidebar('full-sidebar'); // Switch to full sidebar
+                        });
+
+                        document.getElementById('full-sidebar').addEventListener('click', function() {
+                            toggleSidebar('mini-sidebar'); // Switch to mini sidebar
+                        });
+                    </script>
+
+
+                    {{-- show or hide one end  --}}
+
                     <li class="nav-item d-none d-lg-block">
                         <a class="nav-link nav-icon-hover" href="javascript:void(0)" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
@@ -234,12 +281,15 @@
                         <a class="nav-link" href="../dark/app-email.html">Email</a>
                     </li>
 
-                    <li class="nav-item dropdown-hover d-none d-lg-block">
-                        <a class="nav-link" href="../dark/app-email.html">Dark Mode</a>
-                    </li>
+
+
+
                 </ul>
 
+
+
                 <div class="d-block d-lg-none">
+
                     <img src="../assets/images/logos/logo.png" width="180" alt="" />
                 </div>
                 <a class="navbar-toggler nav-icon-hover p-0 border-0" href="javascript:void(0)"
@@ -257,7 +307,62 @@
                             aria-controls="offcanvasWithBothOptions">
                             <i class="ti ti-align-justified fs-7"></i>
                         </a>
+
                         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-center">
+
+
+
+                            {{-- Dark mode amd light mode  starts --}}
+                            <li class="nav-item" style="padding-top: 4px;">
+                                <a class="nav-link moon dark-layout nav-link nav-icon-hover" href="javascript:void(0)"
+                                    id="dark-layout">
+                                    <i class="ti ti-moon moon"></i>
+                                </a>
+                                <a class="nav-link sun light-layout nav-link nav-icon-hover" href="javascript:void(0)"
+                                    id="light-layout">
+                                    <i class="ti ti-sun sun"></i>
+                                </a>
+                            </li>
+
+
+                            <script>
+                                // Function to set the theme and toggle icons
+                                function setTheme(theme) {
+                                    if (theme === 'dark') {
+                                        document.body.classList.add('dark-mode');
+                                        document.body.classList.remove('light-mode');
+                                        document.getElementById('dark-layout').style.display = 'none'; // Hide dark icon
+                                        document.getElementById('light-layout').style.display = 'inline-block'; // Show light icon
+                                        localStorage.setItem('theme', 'dark'); // Save preference
+                                    } else {
+                                        document.body.classList.add('light-mode');
+                                        document.body.classList.remove('dark-mode');
+                                        document.getElementById('dark-layout').style.display = 'inline-block'; // Show dark icon
+                                        document.getElementById('light-layout').style.display = 'none'; // Hide light icon
+                                        localStorage.setItem('theme', 'light'); // Save preference
+                                    }
+                                }
+
+                                // Load saved theme on page load
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    const savedTheme = localStorage.getItem('theme') || 'light';
+                                    setTheme(savedTheme); // Set the initial theme based on the saved value
+                                });
+
+                                // Add event listeners to switch themes when icons are clicked
+                                document.getElementById('dark-layout').addEventListener('click', function() {
+                                    setTheme('dark');
+                                });
+                                document.getElementById('light-layout').addEventListener('click', function() {
+                                    setTheme('light');
+                                });
+                            </script>
+
+
+                            {{-- Dark mode amd light mode  ends --}}
+
+
+
                             <!-- ------------------------------- -->
                             <!-- start language Dropdown -->
                             <!-- ------------------------------- -->
@@ -456,7 +561,7 @@
                                             </div>
                                         </div>
                                         <div class="message-body">
-                                            <a href="{{route('admin-profile')}}"
+                                            <a href="{{ route('admin-profile') }}"
                                                 class="py-8 px-7 mt-8 d-flex align-items-center">
                                                 <span
                                                     class="d-flex align-items-center justify-content-center text-bg-light rounded-1 p-6">
@@ -469,8 +574,8 @@
                                                         Settings</span>
                                                 </div>
                                             </a>
-                                            
-                                            <a href="{{route('admin-edit-profile')}}"
+
+                                            <a href="{{ route('admin-edit-profile') }}"
                                                 class="py-8 px-7 d-flex align-items-center">
                                                 <span
                                                     class="d-flex align-items-center justify-content-center text-bg-light rounded-1 p-6">
@@ -479,7 +584,8 @@
                                                 </span>
                                                 <div class="w-75 d-inline-block v-middle ps-3">
                                                     <h6 class="mb-1 fs-3 fw-semibold lh-base">Edit profile</h6>
-                                                    <span class="fs-2 d-block text-body-secondary">Admin settings</span>
+                                                    <span class="fs-2 d-block text-body-secondary">Admin
+                                                        settings</span>
                                                 </div>
                                             </a>
                                             <a href="../dark/app-notes.html"
